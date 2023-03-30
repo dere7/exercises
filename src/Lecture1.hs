@@ -55,7 +55,7 @@ Explanation: @sumOfSquares 3 4@ should be equal to @9 + 16@ and this
 is 25.
 -}
 -- DON'T FORGET TO SPECIFY THE TYPE IN HERE
-sumOfSquares :: Int -> Int -> Int
+sumOfSquares :: Integer -> Integer -> Integer
 sumOfSquares x y = (x ^ 2) + (y ^ 2)
 
 {- | Implement a function that returns the last digit of a given number.
@@ -70,7 +70,9 @@ sumOfSquares x y = (x ^ 2) + (y ^ 2)
 -}
 -- DON'T FORGET TO SPECIFY THE TYPE IN HERE
 lastDigit :: Int -> Int
-lastDigit n = mod n 10
+lastDigit n =
+    if n >= 0 then mod n 10
+    else mod (-1 * n) 10
 
 {- | Write a function that takes three numbers and returns the
 difference between the biggest number and the smallest one.
@@ -138,10 +140,11 @@ and lower than 6 elements (4, 5, 6, 7, 8 and 9).
 lowerAndGreater :: Int -> [Int] -> String
 lowerAndGreater n list = go 0 0 list
     where
+        go :: Int -> Int -> [Int] -> String
         go greater lesser l
             | null l    = show n ++ " is greater than " ++ show greater ++ " elements and lower than " ++ show lesser ++ " elements"
             | n > num   = go (greater + 1) lesser (tail l)
             | n < num   = go greater (lesser + 1) (tail l)
             | otherwise = go greater lesser (tail l)
             where num = head l
-                
+
